@@ -1,0 +1,15 @@
+.control_box--upper,
+.control_box--down {
+  padding: 0;
+}
+.photoFile,
+.content {
+  display: inline-block;
+  width: 5%;
+  margin: 0;
+}
+
+#chooseFile,
+#submitFile {
+  cursor: pointer;
+}
