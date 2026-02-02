@@ -4,21 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/static/style.css" />
-    <script src="/static/index.js" defer></script>
     <title>圖文留言服務</title>
   </head>
   <body>
-    <h1>發表一篇圖文</h1>
-    <div class="control_box">
-      <div class="control_box--upper">
-        <p class="content">文字內容</p>
-        <input type="text" placeholder="選擇一張圖片後送出" id="message" />
+    <script src="/static/index.js" defer></script>
+    <div class="main">
+      <h1>發表一篇圖文</h1>
+      <div class="control_box">
+        <div class="control_box--upper">
+          <p class="content">文字內容</p>
+          <input type="text" placeholder="選擇一張圖片後送出" id="message" />
+        </div>
+        <div class="control_box--down">
+          <p class="content">圖片檔案</p>
+          <input type="file" id="photoUpload" />
+        </div>
+        <button type="button" id="submitFile">送出</button>
+        <div class="border"></div>
       </div>
-      <div class="control_box--down">
-        <p class="content">圖片檔案</p>
-        <button type="button" id="chooseFile">Choose File</button>
-      </div>
-      <button type="button" id="submitFile">送出</button>
+      <div class="messageBox"></div>
     </div>
   </body>
 </html>
