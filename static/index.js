@@ -88,7 +88,7 @@ submitFile.addEventListener("click", async () => {
 
       let photoStorage = localStorage.getItem("photoArr");
       let photoStorageUse = JSON.parse(photoStorage);
-      photoStorageUse.push("/" + photoPlace);
+      photoStorageUse.push(photoPlace);
       let photoInAgain = JSON.stringify(photoStorageUse);
       localStorage.setItem("photoArr", photoInAgain);
 
@@ -104,12 +104,24 @@ const deleteBtn = document.getElementById("delete");
 
 deleteBtn.addEventListener("click", async () => {
   const url = "/api/delete";
+  const localData = localStorage.getItem("photoArr");
+  const localDataUse = JSON.parse(localData);
+  const payload = {
+    data: {
+      localArr: localDataUse,
+    },
+  };
+
   const request = await fetch(url, {
-    method: "delete",
+    headers: {
+      "Content-Type": "application/JSON",
+    },
+    method: "POST",
+    body: JSON.stringify(payload),
   });
 
   const response = await request.json();
-  localStorage.clear();
+  // localStorage.clear();
   console.log(response);
   console.log("清空成功");
   window.location.reload();

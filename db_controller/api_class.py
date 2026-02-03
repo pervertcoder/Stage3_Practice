@@ -22,3 +22,9 @@ class photoResponse(BaseModel):
 
 class deleteAll(BaseModel):
     ok : bool
+
+class deleteRequestDetail(BaseModel):
+    localArr : list
+
+class deleteRequest(BaseModel):
+    data : deleteRequestDetail
