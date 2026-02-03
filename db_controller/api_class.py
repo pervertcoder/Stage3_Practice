@@ -15,6 +15,10 @@ class responseData(BaseModel):
 
 class photoResponseDetail(BaseModel):
     ok : bool
+    path : str
 
 class photoResponse(BaseModel):
     data : photoResponseDetail
+
+class deleteAll(BaseModel):
+    ok : bool

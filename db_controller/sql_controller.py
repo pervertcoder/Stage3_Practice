@@ -22,3 +22,14 @@ def get_message():
     result = [x[1] for x in mycursor]
     conn.close()
     return result
+# 刪除所有資料
+def delete():
+    conn = get_db_connect()
+    mycursor = conn.cursor()
+    mycursor.execute("use message_photo;")
+    sql = "truncate table message;"
+    mycursor.execute(sql)
+
+    conn.commit()
+    conn.close()
+    print("data deleted successfully")

@@ -6,9 +6,13 @@ body {
 
 .main {
   width: 1200px;
-  height: 100vh;
+  /* height: 100vh; */
   border: solid 1px grey;
   padding: 10px;
+}
+
+.control_box {
+  position: relative;
 }
 
 .control_box--upper,
@@ -35,8 +39,20 @@ body {
 .messageBox {
   margin-top: 10px;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  padding: 5px;
 }
 .messageBox__son {
   border-bottom: solid 1px gray;
+  padding: 10px;
+}
+
+.imgHolder {
+  width: 360px;
+  height: 360px;
+}
+
+#delete {
+  position: absolute;
+  right: 1px;
 }
