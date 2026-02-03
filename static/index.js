@@ -121,7 +121,7 @@ deleteBtn.addEventListener("click", async () => {
   });
 
   const response = await request.json();
-  // localStorage.clear();
+  localStorage.clear();
   console.log(response);
   console.log("清空成功");
   window.location.reload();
