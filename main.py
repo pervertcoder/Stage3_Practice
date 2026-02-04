@@ -71,7 +71,6 @@ def delete_all(request:deleteRequest):
     }
 
 app.mount("/static", StaticFiles(directory="static"))
-app.mount("/uploads", StaticFiles(directory="uploads"))
 # Static Pages
 @app.get("/")
 async def index(request: Request):
