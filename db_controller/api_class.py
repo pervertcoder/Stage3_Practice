@@ -9,13 +9,14 @@ class DataRequest(BaseModel):
 
 class responseDataDetail(BaseModel):
     msg : list
+    path : list
 
 class responseData(BaseModel):
     data : responseDataDetail
 
 class photoResponseDetail(BaseModel):
     ok : bool
-    path : str
+    path : list
 
 class photoResponse(BaseModel):
     data : photoResponseDetail

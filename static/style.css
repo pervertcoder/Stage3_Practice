@@ -1,17 +1,19 @@
 body {
+  max-width: 1920px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .main {
-  width: 1200px;
+  width: 60%;
   /* height: 100vh; */
   border: solid 1px grey;
   padding: 10px;
 }
 
 .control_box {
+  width: 100%;
   position: relative;
 }
 
@@ -48,8 +50,8 @@ body {
 }
 
 .imgHolder {
-  width: 360px;
-  height: 360px;
+  width: 50%;
+  height: 50%;
 }
 
 #delete {

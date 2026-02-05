@@ -2,11 +2,14 @@ from fastapi import *
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from db_controller.sql_controller import write_message, get_message, delete
-from db_controller.api_class import DataRequest, responseData, photoResponse, deleteAll, deleteRequest
+from db_controller.api_class import DataRequest, responseData, photoResponse, deleteAll
 import boto3
 
 s3 = boto3.resource("s3")
 app = FastAPI()
+
+path = []
+print(path)
 
 @app.post("/api/insert")
 def insert_message(request:DataRequest):
@@ -26,34 +29,40 @@ def render_message():
     
     return {
         "data" : {
-            "msg" : result
+            "msg" : result,
+            "path" : path
         }
     }
+
 
 @app.post("/api/upload", response_model=photoResponse)
 def upload_photo(file:UploadFile = File(...)):
     cloud_front_url = "df77blnctku6q.cloudfront.net/"
     photo_cloudfront = f"images/{file.filename}"
     s3.Bucket("test-photo-pervertclouder").put_object(Key = photo_cloudfront, Body = file.file)
+    real_url = "https://" + cloud_front_url + photo_cloudfront
+    path.append(real_url)
     return {
         "data" : {
             "ok" : True,
-            "path" : "https://" + cloud_front_url + photo_cloudfront
+            "path" : path
         }
     }
 
 
-def data_process(arr:list) -> list:
+def data_process() -> list:
     targetArr = []
-    for i in arr:
+    global path
+    for i in path:
         target_son = i[37:]
         targetArr.append(target_son)
     return targetArr
 
-@app.post("/api/delete", response_model=deleteAll)
-def delete_all(request:deleteRequest):
+@app.delete("/api/delete", response_model=deleteAll)
+def delete_all():
     delete()
-    data = data_process(request.data.localArr)
+    data = data_process()
+    path.clear()
     dataArr = []
     for i in range(len(data)):
         dataArr.append({"Key" : f"{data[i]}"})

@@ -1,15 +1,5 @@
 "use strict";
 
-// 存到暫存
-let check = localStorage.getItem("photoArr");
-if (check) {
-  console.log("有資料了");
-} else {
-  let uploadPhotos = [];
-  const uploadPhotosStr = JSON.stringify(uploadPhotos);
-  localStorage.setItem("photoArr", uploadPhotosStr);
-}
-
 const renderDiv = function (m = null, photoPath = null) {
   const messageFather = document.querySelector(".messageBox");
   const messageDiv = document.createElement("div");
@@ -27,8 +17,7 @@ const renderDiv = function (m = null, photoPath = null) {
 };
 
 // 拿圖片出來
-const photoUse = localStorage.getItem("photoArr");
-const photoUseArr = JSON.parse(photoUse);
+
 const render = async function () {
   const url = "/api/render";
   const req = await fetch(url);
@@ -38,8 +27,9 @@ const render = async function () {
 
   const messageContent = response.data.msg;
   for (let i = 0; i < messageContent.length; i++) {
-    renderDiv(response.data.msg[i], photoUseArr[i]);
+    renderDiv(response.data.msg[i], response.data.path[i]);
   }
+  console.log(response.data.msg, response.data.path);
 };
 
 render();
@@ -84,13 +74,6 @@ submitFile.addEventListener("click", async () => {
 
       const response2 = await request.json();
       console.log(response2);
-      const photoPlace = response2.data.path;
-
-      let photoStorage = localStorage.getItem("photoArr");
-      let photoStorageUse = JSON.parse(photoStorage);
-      photoStorageUse.push(photoPlace);
-      let photoInAgain = JSON.stringify(photoStorageUse);
-      localStorage.setItem("photoArr", photoInAgain);
 
       window.location.reload();
     } else {
@@ -104,25 +87,12 @@ const deleteBtn = document.getElementById("delete");
 
 deleteBtn.addEventListener("click", async () => {
   const url = "/api/delete";
-  const localData = localStorage.getItem("photoArr");
-  const localDataUse = JSON.parse(localData);
-  const payload = {
-    data: {
-      localArr: localDataUse,
-    },
-  };
 
   const request = await fetch(url, {
-    headers: {
-      "Content-Type": "application/JSON",
-    },
-    method: "POST",
-    body: JSON.stringify(payload),
+    method: "DELETE",
   });
 
-  const response = await request.json();
-  localStorage.clear();
-  console.log(response);
+  // const response = await request.json();
   console.log("清空成功");
   window.location.reload();
 });
