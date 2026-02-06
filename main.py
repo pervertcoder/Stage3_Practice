@@ -3,13 +3,14 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from db_controller.sql_controller import write_message, get_message, delete
 from db_controller.api_class import DataRequest, responseData, photoResponse, deleteAll
+from funcDef.functiondef import time_process, file_name_process
 import boto3
 
 s3 = boto3.resource("s3")
 app = FastAPI()
 
 path = []
-print(path)
+# print(path)
 
 @app.post("/api/insert")
 def insert_message(request:DataRequest):
@@ -37,8 +38,11 @@ def render_message():
 
 @app.post("/api/upload", response_model=photoResponse)
 def upload_photo(file:UploadFile = File(...)):
+    time = time_process()
     cloud_front_url = "df77blnctku6q.cloudfront.net/"
-    photo_cloudfront = f"images/{file.filename}"
+    file1 = file.filename
+    file_name_done = file_name_process(file1, time)
+    photo_cloudfront = f"images/{file_name_done}"
     s3.Bucket("test-photo-pervertclouder").put_object(Key = photo_cloudfront, Body = file.file)
     real_url = "https://" + cloud_front_url + photo_cloudfront
     path.append(real_url)
@@ -48,7 +52,6 @@ def upload_photo(file:UploadFile = File(...)):
             "path" : path
         }
     }
-
 
 def data_process() -> list:
     targetArr = []
