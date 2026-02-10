@@ -29,7 +29,7 @@ const render = async function () {
   for (let i = 0; i < messageContent.length; i++) {
     renderDiv(response.data.msg[i], response.data.path[i]);
   }
-  console.log(response.data.msg, response.data.path);
+  // console.log(response.data.msg, response.data.path);
 };
 
 render();

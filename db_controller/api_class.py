@@ -16,7 +16,6 @@ class responseData(BaseModel):
 
 class photoResponseDetail(BaseModel):
     ok : bool
-    path : list
 
 class photoResponse(BaseModel):
     data : photoResponseDetail
