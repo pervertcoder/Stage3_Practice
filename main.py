@@ -74,8 +74,8 @@ def delete_all():
         "ok" : True
     }
 
-app.mount("/static", StaticFiles(directory="static"))
-# Static Pages
-@app.get("/")
-async def index(request: Request):
-    return FileResponse("./static/index.html")
+# app.mount("/static", StaticFiles(directory="static"))
+# # Static Pages
+# @app.get("/")
+# async def index(request: Request):
+#     return FileResponse("./static/index.html")
